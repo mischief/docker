@@ -22,7 +22,7 @@ jobs:
         password: ${{secrets.GITHUB_TOKEN}}
 
     - name: Build Docker Images
-      run: make -j2
+      run: make all
 
     - name: Push Docker Images
       run: make push
