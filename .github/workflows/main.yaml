@@ -22,7 +22,10 @@ jobs:
         password: ${{secrets.GITHUB_TOKEN}}
 
     - name: Build Docker Images
-      run: make all
+      # WAR for cosmo in github workflow
+      run: |
+        sudo sh -c "echo ':APE:M::MZqFpD::/bin/sh:' >/proc/sys/fs/binfmt_misc/register"
+        make all
 
     - name: Push Docker Images
       run: make push
