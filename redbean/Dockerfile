@@ -17,6 +17,7 @@ RUN zip -d /redbean.com .ape
 # force unpack
 RUN bash /redbean.com -h 2>/dev/null >/dev/null
 
+
 FROM scratch
 
 COPY --from=build /redbean.com /redbean.com
