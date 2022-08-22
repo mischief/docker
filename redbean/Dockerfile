@@ -1,7 +1,7 @@
 FROM alpine:3 as build
 
 ARG REPO=https://github.com/jart/cosmopolitan.git
-ARG BRANCH=master
+ARG BRANCH=2.0.1
 # cosmo build mode
 ARG MODE=rel
 
@@ -12,10 +12,8 @@ RUN git clone --depth=1 --branch=$BRANCH $REPO /build/cosmopolitan
 WORKDIR /build/cosmopolitan
 RUN make -j -l4 -O MODE=$MODE o/$MODE/tool/net/redbean.com
 RUN cp o/$MODE/tool/net/redbean.com /redbean.com
-RUN zip -d /redbean.com .ape
 
-# force unpack
-RUN bash /redbean.com -h 2>/dev/null >/dev/null
+RUN /redbean.com --assimilate
 
 FROM scratch
 
