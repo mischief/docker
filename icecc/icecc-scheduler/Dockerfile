@@ -1,4 +1,4 @@
-FROM bitnami/minideb:buster 
+FROM bitnami/minideb:bullseye
 
 LABEL org.opencontainers.image.authors mischief@offblast.org
 LABEL org.opencontainers.image.source https://github.com/mischief/docker
