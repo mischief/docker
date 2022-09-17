@@ -1,19 +1,9 @@
 FROM alpine:3 as build
 
-ARG REPO=https://github.com/jart/cosmopolitan.git
-ARG BRANCH=2.0.1
-# cosmo build mode
-ARG MODE=rel
-
-RUN apk add git make zip bash coreutils
-
-RUN git clone --depth=1 --branch=$BRANCH $REPO /build/cosmopolitan
-
-WORKDIR /build/cosmopolitan
-RUN make -j -l4 -O MODE=$MODE o/$MODE/tool/net/redbean.com
-RUN cp o/$MODE/tool/net/redbean.com /redbean.com
-
-RUN /redbean.com --assimilate
+RUN wget -O /redbean.com https://redbean.dev/redbean-2.0.18.com
+RUN echo '86f5db3d824c69f7ff2f250aa0ade86d8e2a6d40a3730b5e7eeafaed1945a570  redbean.com' > redbean.sha256
+RUN sha256sum -c redbean.sha256 && rm redbean.sha256
+RUN chmod +x /redbean.com && /redbean.com --assimilate
 
 FROM scratch
 
